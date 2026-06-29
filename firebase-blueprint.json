@@ -1,0 +1,176 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the Motivator Diary app.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user's display name."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the user account was created."
+        },
+        "aiFriend": {
+          "type": "object",
+          "description": "The user's AI friend settings.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["girl", "boy"],
+              "description": "The type of AI friend."
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the AI friend."
+            }
+          },
+          "required": ["type", "name"]
+        }
+      },
+      "required": ["name", "email", "createdAt"]
+    },
+    "DiaryEntry": {
+      "title": "DiaryEntry",
+      "description": "A single diary entry.",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The content of the diary entry."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["achievement", "my universe", "my story"],
+          "description": "The category of the entry."
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The ISO date string of the entry."
+        }
+      },
+      "required": ["text", "type", "date"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "A single chat message in the AI conversation.",
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": ["user", "model"],
+          "description": "The sender of the message."
+        },
+        "text": {
+          "type": "string",
+          "description": "The content of the message."
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "The time the message was sent, for ordering."
+        },
+        "friendType": {
+          "type": "string",
+          "enum": ["girl", "boy"],
+          "description": "The persona type of the AI friend for this message."
+        },
+        "audioUrl": {
+          "type": "string",
+          "description": "Base64 encoded audio data URL for voice messages."
+        }
+      },
+      "required": ["role", "text", "timestamp"]
+    },
+    "Reminder": {
+      "title": "Reminder",
+      "description": "A reminder set by the user or AI.",
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The ISO date string of the reminder time."
+        },
+        "message": {
+          "type": "string",
+          "description": "The content of the reminder."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "sent"],
+          "description": "The status of the reminder."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "The time the reminder was created."
+        }
+      },
+      "required": ["time", "message", "status", "createdAt"]
+    },
+    "AIProfile": {
+      "title": "AIProfile",
+      "description": "A profile for an AI character.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["girl", "boy"],
+          "description": "The gender of the character."
+        },
+        "location": {
+          "type": "string",
+          "description": "Where the character is from."
+        },
+        "bio": {
+          "type": "string",
+          "description": "A short bio or description."
+        },
+        "personality": {
+          "type": "string",
+          "description": "Personality traits."
+        }
+      },
+      "required": ["type", "location", "bio", "personality"]
+    }
+  },
+  "firestore": {
+    "/aiProfiles/{profileId}": {
+      "schema": {
+        "$ref": "#/entities/AIProfile"
+      },
+      "description": "Stores AI character profiles."
+    },
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "Stores user profile information."
+    },
+    "/users/{userId}/diaryEntries/{entryId}": {
+      "schema": {
+        "$ref": "#/entities/DiaryEntry"
+      },
+      "description": "Stores diary entries for a specific user."
+    },
+    "/users/{userId}/chatHistory/{messageId}": {
+      "schema": {
+        "$ref": "#/entities/ChatMessage"
+      },
+      "description": "Stores chat messages for a specific user."
+    },
+    "/users/{userId}/reminders/{reminderId}": {
+      "schema": {
+        "$ref": "#/entities/Reminder"
+      },
+      "description": "Stores reminders for a specific user."
+    }
+  }
+}

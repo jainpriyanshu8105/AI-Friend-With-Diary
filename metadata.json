@@ -1,0 +1,10 @@
+{
+  "name": "Ai Friend with A Personal Diary ",
+  "description": "A personal diary and AI friend that listens to your problems and motivates you based on your past achievements.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
