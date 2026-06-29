@@ -13,6 +13,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, setDoc, getDoc, collection, onSnapshot, query, orderBy, addDoc, deleteDoc, updateDoc, getDocs } from 'firebase/firestore';
 import { Settings, ShieldAlert } from 'lucide-react';
 
+
 type View = 'home' | 'dashboard' | 'diary' | 'talk' | 'games';
 
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean, error: any }> {

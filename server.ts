@@ -3,12 +3,15 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import { Resend } from "resend";
 import path from "path";
-
+import { GoogleGenAI } from "@google/genai";
 async function startServer() {
   const app = express();
   const PORT = 3000;
 
   app.use(express.json({ limit: '10mb' }));
+  const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY!,
+});
 
   // API routes
   app.post("/api/send-reminder-email", async (req, res) => {
